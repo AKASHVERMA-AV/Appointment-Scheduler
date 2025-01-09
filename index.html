@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Scheduler:schedule your appointment here</title>
+    <link rel="icon" href="https://cdn.pixabay.com/photo/2023/10/05/07/38/appointment-8295104_640.png">
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f4f4f9;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            background: #ffffff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        input, select, textarea, button {
+            margin-top: 10px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #4CAF50;
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .success {
+            color: green;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Appointment Scheduler</h1>
+        <form id="appointment-form">
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+            <span class="error" id="name-error"></span>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            <span class="error" id="email-error"></span>
+
+            <label for="date">Appointment Date:</label>
+            <input type="date" id="date" name="date" required>
+            <span class="error" id="date-error"></span>
+
+            <label for="time">Time Slot:</label>
+            <select id="time" name="time" required>
+                <option value="">Select a time slot</option>
+                <option value="9:00 AM">9:00 AM</option>
+                <option value="10:00 AM">10:00 AM</option>
+                <option value="11:00 AM">11:00 AM</option>
+                <option value="1:00 PM">1:00 PM</option>
+                <option value="2:00 PM">2:00 PM</option>
+                <option value="3:00 PM">3:00 PM</option>
+            </select>
+            <span class="error" id="time-error"></span>
+
+            <label for="message">Additional Notes:</label>
+            <textarea id="message" name="message" placeholder="Any specific details?" rows="4"></textarea>
+
+            <button type="submit">Schedule Appointment</button>
+            <span class="success" id="form-success"></span>
+        </form>
+    </div>
+
+    <script>
+        const form = document.getElementById('appointment-form');
+        const nameError = document.getElementById('name-error');
+        const emailError = document.getElementById('email-error');
+        const dateError = document.getElementById('date-error');
+        const timeError = document.getElementById('time-error');
+        const formSuccess = document.getElementById('form-success');
+
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            let isValid = true;
+
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const date = document.getElementById('date').value;
+            const time = document.getElementById('time').value;
+
+            nameError.textContent = '';
+            emailError.textContent = '';
+            dateError.textContent = '';
+            timeError.textContent = '';
+            formSuccess.textContent = '';
+
+            if (name === '') {
+                nameError.textContent = 'Name is required.';
+                isValid = false;
+            }
+
+            if (email === '') {
+                emailError.textContent = 'Email is required.';
+                isValid = false;
+            } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                emailError.textContent = 'Invalid email format.';
+                isValid = false;
+            }
+
+            if (date === '') {
+                dateError.textContent = 'Date is required.';
+                isValid = false;
+            }
+
+            if (time === '') {
+                timeError.textContent = 'Time slot is required.';
+                isValid = false;
+            }
+
+            if (isValid) {
+                formSuccess.textContent = 'Appointment scheduled successfully!';
+                form.reset();
+            }
+        });
+    </script>
+</body>
+</html>
