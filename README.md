@@ -1,2 +1,3 @@
 # Appointment-Scheduler
-Appointment Scheduler Website With a Clean and Professional UI
+Appointment Scheduler Website With Time Slots, Reminders, and Calendar integration.
+
